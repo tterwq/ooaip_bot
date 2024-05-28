@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy import delete, select
 
 from database import new_session
-from models import User, UserCommits, CommitMetrics
+from github.models import User, UserCommits, CommitMetrics
 
 
 class UserService:
