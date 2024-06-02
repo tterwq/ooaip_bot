@@ -5,19 +5,6 @@ from datetime import time
 from models import BaseModel
 
 
-class User(BaseModel):
-    __tablename__ = 'users'
-
-    user_id: Mapped[int] = mapped_column(primary_key=True)
-
-
-class UserCommits(BaseModel):
-    __tablename__ = 'user_commits'
-
-    commit_id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.user_id", ondelete="CASCADE"))
-
-
 class CommitMetrics(BaseModel):
     __tablename__ = 'commit_metrics'
 
