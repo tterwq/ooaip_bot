@@ -2,14 +2,22 @@ from typing import List, Dict, Any
 
 from fastapi import APIRouter, Depends
 
-from github.commits.models import UserCommits
-from github.commits.repository import UserCommitsRepository
+from models import UserCommits
+from repository import UserCommitsRepository
 
 
 commits_router = APIRouter(
     prefix="/commits",
     tags=["Commits"]
 )
+
+@commits_router.get("/get_commits_id")
+def get_commits_id(owner: str, repo: str):
+    response = requests.get(f"https://api.github.com/repos/{owner}/{repo}commits").json()
+    commits_id = []
+    for number in response:
+        commits_id.append(number["sha"])
+    return commits_id
 
 @commits_router.post("/add_commit")
 async def add_commit(commit: UserCommits = Depends(UserCommits)) -> Dict[str, Any]:

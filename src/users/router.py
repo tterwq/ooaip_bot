@@ -2,8 +2,8 @@ from typing import List, Dict, Any
 
 from fastapi import APIRouter, Depends
 
-from github.users.models import User
-from github.users.repository import UserRepository
+from models import User
+from repository import UserRepository
 
 users_router = APIRouter(
     prefix="/users",
