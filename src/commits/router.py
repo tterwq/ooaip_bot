@@ -1,6 +1,7 @@
 from typing import List, Dict, Any
 
 from fastapi import APIRouter, Depends
+import requests
 
 from models import UserCommits
 from repository import UserCommitsRepository
