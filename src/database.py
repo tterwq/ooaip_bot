@@ -7,6 +7,6 @@ from src.config import settings
 engine = create_async_engine(settings.DB_URL)
 new_async_session = async_sessionmaker(engine)
 
-def get_db() -> Session:
-    with new_async_session() as session:
+async def get_db():
+    async with new_async_session() as session:
         yield session
