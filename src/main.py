@@ -5,7 +5,7 @@ from metrics.router import metrics_router
 from users.router import users_router
 
 
-def main() -> FastAPI:
+def get_application() -> FastAPI:
 
     app = FastAPI()
 
@@ -20,3 +20,5 @@ def main() -> FastAPI:
     app.include_router(commits_router)
     app.include_router(metrics_router)
     app.include_router(users_router)
+
+app = get_application()

@@ -34,4 +34,3 @@ async def get_user_by_id(user_id: int) -> User:
 async def delete_user_by_id(user_id: int) -> Dict[str, Any]:
     num_deleted_rows = await delete_user_by_id(user_id)
     return {"ok": True, "num_deleted_rows": num_deleted_rows}
-

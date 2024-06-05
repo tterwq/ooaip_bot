@@ -27,8 +27,9 @@ async def get_execution_time(owner: str, repo: str, job_id: int):
     return execution_time
 
 @metrics_router.get("/get_allocated_memory")
-def get_allocated_memory(owner: str, repo: str, run_id: int):
-    response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts").json()
+async def get_allocated_memory(owner: str, repo: str, run_id: int):
+    async with AsyncClient() as client:
+        response = await client.get(f"https://api.github.com/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts").json()
     size_b = []
     for number in response["artifacts"]:
         size_b.append(number["size_in_bytes"])
