@@ -17,10 +17,13 @@ from models import BaseModel
 from commits.models import UserCommits
 from metrics.models import CommitMetrics
 from users.models import User
+from database import settings
 
 target_metadata = [BaseModel.metadata, UserCommits.metadata, CommitMetrics.metadata, User.metadata]
 
 config = context.config
+
+config.set_main_option('sqlalchemy.url', settings.DB_URL)
 
 
 if config.config_file_name is not None:
