@@ -1,7 +1,8 @@
 from fastapi import Depends
-from sqlalchemy.orm import Session, delete, select
+from sqlalchemy.orm import Session
+from sqlalchemy import delete, select
 from database import get_db
-from models import UserCommits
+from .models import UserCommits
 from typing import List
 
 async def add_commit(data: UserCommits, db: Session = Depends(get_db)) -> int:

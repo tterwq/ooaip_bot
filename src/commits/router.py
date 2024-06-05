@@ -3,8 +3,9 @@ from typing import List, Dict, Any
 from fastapi import APIRouter, Depends
 from httpx import AsyncClient
 
-from models import UserCommits
-from repository import (
+from .models import UserCommits
+from .schemas import UserCommitsSchema
+from .repository import (
     add_commit,
     get_commits_by_user_id,
     delete_commit_by_id
@@ -31,9 +32,10 @@ async def add_commit(commit: UserCommits = Depends(UserCommits)) -> Dict[str, An
     return {"ok": True, "commit_id": commit_id}
 
 @commits_router.get("/user/{user_id}")
-async def get_commits_by_user_id(user_id: int) -> List[UserCommits]:
+async def get_commits_by_user_id(user_id: int) -> List[UserCommitsSchema]:
     commits = await get_commits_by_user_id(user_id)
-    return commits
+    res = [UserCommitsSchema.model_validate(obj) for obj in commits]
+    return res
 
 @commits_router.delete("/{commit_id}")
 async def delete_commit_by_id(commit_id: int) -> Dict[str, Any]:

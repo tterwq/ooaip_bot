@@ -1,7 +1,8 @@
 from fastapi import Depends
-from sqlalchemy.orm import Session, delete, select
+from sqlalchemy.orm import Session
+from sqlalchemy import delete, select
 from database import get_db
-from models import CommitMetrics
+from .models import CommitMetrics
 
 async def add_commit_metric(data: CommitMetrics, db: Session = Depends(get_db)) -> int:
     metric_dict = data.model_dump()

@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends
 from datetime import datetime
 from httpx import AsyncClient
 
-from models import CommitMetrics
-from repository import (
+from .models import CommitMetrics
+from .schemas import CommitMetricsSchema
+from .repository import (
     add_commit_metric,
     get_metrics_by_commit_id,
     delete_metric_by_commit_id
@@ -42,9 +43,10 @@ async def add_commit_metric(metric: CommitMetrics = Depends(CommitMetrics)) -> D
     return {"ok": True, "metric_id": metric_id}
 
 @metrics_router.get("/commit/{commit_id}")
-async def get_metrics_by_commit_id(commit_id: int) -> CommitMetrics:
+async def get_metrics_by_commit_id(commit_id: int) -> CommitMetricsSchema:
     metrics = await get_metrics_by_commit_id(commit_id)
-    return metrics
+    res = CommitMetricsSchema.model_validate(metrics)
+    return res
 
 @metrics_router.delete("/{commit_id}")
 async def delete_metric_by_commit_id(commit_id: int) -> Dict[str, Any]:
