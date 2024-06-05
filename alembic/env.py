@@ -1,3 +1,6 @@
+import os
+import sys
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -6,14 +9,19 @@ from sqlalchemy import pool
 from alembic import context
 from src.config import settings
 
-from src.models import BaseModel
-from src.commits.models import UserCommits
-from src.metrics.models import CommitMetrics
-from src.users.models import User
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '..', 'src'))
+sys.path.append(SRC_DIR)
+
+from models import BaseModel
+from commits.models import UserCommits
+from metrics.models import CommitMetrics
+from users.models import User
 
 target_metadata = [BaseModel.metadata, UserCommits.metadata, CommitMetrics.metadata, User.metadata]
 
 config = context.config
+
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
