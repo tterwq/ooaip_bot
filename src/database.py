@@ -1,6 +1,4 @@
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from sqlalchemy.orm import Session
-from fastapi import Depends, FastAPI
 
 from config import settings
 
