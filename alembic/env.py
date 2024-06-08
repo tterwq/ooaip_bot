@@ -23,7 +23,9 @@ target_metadata = [BaseModel.metadata]
 
 config = context.config
 
-config.set_main_option('sqlalchemy.url', str(settings.DB_URL))
+db_url = f'postgresql+psycopg2://{settings.DB_USER}:{settings.DB_PASS}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}'
+
+config.set_main_option('sqlalchemy.url', db_url)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
